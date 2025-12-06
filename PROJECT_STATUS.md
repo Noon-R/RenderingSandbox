@@ -164,6 +164,7 @@ RenderingSandbox/
 - [x] Visual Studio環境の構築
 - [x] 学習資料の整理（learning_phases.md, rendering_techniques.md）
 - [x] プロジェクト管理ドキュメントの作成（本ファイル）
+- [x] Git環境の整備（.gitignore, .gitattributes, 初回コミット）
 
 ### 進行中
 - [ ] **Stage 1: HelloTriangle実装準備** ← 現在の焦点
@@ -297,5 +298,38 @@ RenderingSandbox\x64\Release\RenderingSandbox.exe
 
 ---
 
+## 🔧 Git管理
+
+### ローカルリポジトリ
+- ✅ Git初期化完了
+- ✅ .gitignore設定済み（Visual Studio C++プロジェクト向け）
+- ✅ .gitattributes設定済み（改行コード、差分表示設定）
+
+### 除外されるファイル
+- Visual Studioの生成ファイル（.vs/, bin/, obj/）
+- ビルド成果物（.exe, .dll, .lib, .obj）
+- ユーザー固有の設定（.user, .suo）
+- 中間ファイル、ログファイル
+- 外部ライブラリのビルド成果物
+
+### リモートリポジトリの追加（オプション）
+
+GitHubなどにプッシュする場合：
+
+```bash
+# リモートリポジトリを追加
+git remote add origin <your-repository-url>
+
+# 初回プッシュ
+git push -u origin master
+
+# ブランチ名をmainに変更したい場合
+git branch -M main
+git push -u origin main
+```
+
+---
+
 **更新履歴**:
 - 2025-12-06: 初版作成、プロジェクト構造と学習計画の整理
+- 2025-12-06: Git環境の整備完了
