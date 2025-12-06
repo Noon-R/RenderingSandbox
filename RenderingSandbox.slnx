@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="RenderingSandbox/RenderingSandbox.vcxproj" Id="2379a750-278e-40cc-9b6e-c1426addea9f" />
+</Solution>
