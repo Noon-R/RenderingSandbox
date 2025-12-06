@@ -305,6 +305,11 @@ RenderingSandbox\x64\Release\RenderingSandbox.exe
 - ✅ .gitignore設定済み（Visual Studio C++プロジェクト向け）
 - ✅ .gitattributes設定済み（改行コード、差分表示設定）
 
+### リモートリポジトリ
+- ✅ GitHub: [https://github.com/Noon-R/RenderingSandbox](https://github.com/Noon-R/RenderingSandbox)
+- ✅ ブランチ: `main`
+- ✅ 初回プッシュ完了
+
 ### 除外されるファイル
 - Visual Studioの生成ファイル（.vs/, bin/, obj/）
 - ビルド成果物（.exe, .dll, .lib, .obj）
