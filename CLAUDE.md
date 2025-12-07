@@ -14,6 +14,23 @@ RenderingSandboxは、C++20を使用したWindowsベースのレンダリング�
 - **[Documents/learning_phases.md](./Documents/learning_phases.md)** - 9フェーズの詳細な学習計画（Phase 1-9, 22ヶ月）
 - **[Documents/rendering_techniques.md](./Documents/rendering_techniques.md)** - DirectX 12技術項目の完全カタログ（セクション1-19）
 
+## 🎓 学習方針
+
+このプロジェクトは**自己学習用**です。Claude Codeの役割：
+
+### ✅ サポート内容
+- ドキュメント管理と進捗追跡
+- Git管理のサポート
+- 技術的な質問への回答とアドバイス
+- コードレビュー（要求された場合）
+- 問題解決のヒント提供
+
+### ❌ 実施しないこと
+- 実装コードの自動生成
+- コードの代行作成
+
+**重要**: 実装は開発者自身が行い、学習を通じて理解を深めることを優先します。
+
 ## Build and Development Commands
 
 ### Building the Project
