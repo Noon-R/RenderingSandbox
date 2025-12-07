@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Zenn CLI
+.zenn/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

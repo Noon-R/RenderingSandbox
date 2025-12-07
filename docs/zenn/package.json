@@ -1,0 +1,21 @@
+{
+  "name": "rendering-sandbox-zenn",
+  "version": "1.0.0",
+  "description": "Zenn content for RenderingSandbox - DirectX 12 learning journey",
+  "scripts": {
+    "preview": "zenn preview",
+    "new:article": "zenn new:article",
+    "new:book": "zenn new:book"
+  },
+  "keywords": [
+    "DirectX12",
+    "Graphics",
+    "Rendering",
+    "C++"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "zenn-cli": "^0.1.150"
+  }
+}

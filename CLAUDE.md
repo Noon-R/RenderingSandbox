@@ -11,8 +11,8 @@ RenderingSandboxは、C++20を使用したWindowsベースのレンダリング�
 プロジェクトの詳細情報は以下のドキュメントを参照してください：
 
 - **[PROJECT_STATUS.md](./PROJECT_STATUS.md)** - **必読**: プロジェクト全体の進捗状況、学習計画、リポジトリ構造
-- **[Documents/learning_phases.md](./Documents/learning_phases.md)** - 9フェーズの詳細な学習計画（Phase 1-9, 22ヶ月）
-- **[Documents/rendering_techniques.md](./Documents/rendering_techniques.md)** - DirectX 12技術項目の完全カタログ（セクション1-19）
+- **[docs/draft/learning_phases.md](./docs/draft/learning_phases.md)** - 9フェーズの詳細な学習計画（Phase 1-9, 22ヶ月）
+- **[docs/draft/rendering_techniques.md](./docs/draft/Documents/rendering_techniques.md)** - DirectX 12技術項目の完全カタログ（セクション1-19）
 
 ## 🎓 学習方針
 

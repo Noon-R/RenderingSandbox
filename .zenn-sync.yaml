@@ -1,0 +1,19 @@
+# ===========================================
+# Zenn 同期設定
+# ===========================================
+# zenn-content リポジトリの sync-from-project.sh が
+# この設定を読み込みます。
+
+# Zenn用ドキュメントのディレクトリ
+docs_dir: docs/zenn
+
+# プロジェクト情報（メタデータ）
+project:
+  name: RenderingSandbox
+  slug: renderingsandbox
+
+# 同期時のオプション（将来の拡張用）
+# sync:
+#   slug_prefix: "renderingsandbox"
+#   auto_topics:
+#     - "renderingsandbox"
