@@ -1,3 +1,6 @@
 [submodule "Common/ThirdParty/imgui"]
 	path = Common/ThirdParty/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "Common/ThirdParty/assimp"]
+	path = Common/ThirdParty/assimp
+	url = https://github.com/assimp/assimp.git

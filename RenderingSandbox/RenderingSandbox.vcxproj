@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;..\Common\ThirdParty\assimp\include;..\Common\ThirdParty\assimp\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;..\Common\ThirdParty\assimp\include;..\Common\ThirdParty\assimp\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,12 +111,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;..\Common\ThirdParty\assimp\include;..\Common\ThirdParty\assimp\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Common\ThirdParty\assimp\build\lib\Debug;..\Common\ThirdParty\assimp\build\contrib\zlib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;zlibstaticd.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -128,12 +129,13 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\ThirdParty;..\Common\ThirdParty\imgui;..\Common\ThirdParty\assimp\include;..\Common\ThirdParty\assimp\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Common\ThirdParty\assimp\build\lib\Release;..\Common\ThirdParty\assimp\build\contrib\zlib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mt.lib;zlibstatic.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
@@ -141,6 +143,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tests\TestImGui.cpp" />
     <ClCompile Include="Tests\TestStb.cpp" />
+    <ClCompile Include="Tests\TestAssimp.cpp" />
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui.cpp" />
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui_tables.cpp" />
@@ -151,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="Tests\TestImGui.h" />
     <ClInclude Include="Tests\TestStb.h" />
+    <ClInclude Include="Tests\TestAssimp.h" />
     <ClInclude Include="..\Common\ThirdParty\imgui\imgui.h" />
     <ClInclude Include="..\Common\ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="..\Common\ThirdParty\imgui\backends\imgui_impl_dx12.h" />

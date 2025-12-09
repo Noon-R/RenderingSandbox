@@ -3,6 +3,7 @@
 
 #include "Tests/TestImGui.h"
 #include "Tests/TestStb.h"
+#include "Tests/TestAssimp.h"
 
 #include <iostream>
 
@@ -16,6 +17,9 @@ int main()
 
     // stbテスト実行
     RunStbTest();
+
+    // Assimpテスト実行
+    RunAssimpTest();
 
     std::cout << "=== All Library Tests Completed ===" << std::endl;
     std::cout << std::endl;
