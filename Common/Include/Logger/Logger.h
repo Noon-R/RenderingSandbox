@@ -42,45 +42,45 @@ public:
     /// ログメッセージを出力（汎用メソッド）
     /// </summary>
     /// <param name="level">ログレベル</param>
+    /// <param name="category">カテゴリ</param>
     /// <param name="message">メッセージ本文</param>
-    /// <param name="category">カテゴリ（省略可）</param>
     /// <param name="file">ソースファイル名（省略可）</param>
     /// <param name="line">行番号（省略可）</param>
     void Log(LogLevel level,
+             const std::string& category,
              const std::string& message,
-             const std::string& category = "",
              const char* file = "",
              int line = 0);
 
     /// <summary>
     /// Traceレベルのログを出力
     /// </summary>
-    void Trace(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Trace(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// Debugレベルのログを出力
     /// </summary>
-    void Debug(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Debug(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// Infoレベルのログを出力
     /// </summary>
-    void Info(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Info(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// Warningレベルのログを出力
     /// </summary>
-    void Warning(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Warning(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// Errorレベルのログを出力
     /// </summary>
-    void Error(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Error(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// Fatalレベルのログを出力
     /// </summary>
-    void Fatal(const std::string& message, const std::string& category = "", const char* file = "", int line = 0);
+    void Fatal(const std::string& category, const std::string& message, const char* file = "", int line = 0);
 
     /// <summary>
     /// グローバル最小ログレベルを設定（これ以下は全Sinkで出力しない）

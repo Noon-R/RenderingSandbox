@@ -32,8 +32,8 @@ void Logger::ClearSinks() {
 }
 
 void Logger::Log(LogLevel level,
-                 const std::string& message,
                  const std::string& category,
+                 const std::string& message,
                  const char* file,
                  int line)
 {
@@ -72,28 +72,28 @@ void Logger::Log(LogLevel level,
     }
 }
 
-void Logger::Trace(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Trace, message, category, file, line);
+void Logger::Trace(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Trace, category, message, file, line);
 }
 
-void Logger::Debug(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Debug, message, category, file, line);
+void Logger::Debug(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Debug, category, message, file, line);
 }
 
-void Logger::Info(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Info, message, category, file, line);
+void Logger::Info(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Info, category, message, file, line);
 }
 
-void Logger::Warning(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Warning, message, category, file, line);
+void Logger::Warning(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Warning, category, message, file, line);
 }
 
-void Logger::Error(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Error, message, category, file, line);
+void Logger::Error(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Error, category, message, file, line);
 }
 
-void Logger::Fatal(const std::string& message, const std::string& category, const char* file, int line) {
-    Log(LogLevel::Fatal, message, category, file, line);
+void Logger::Fatal(const std::string& category, const std::string& message, const char* file, int line) {
+    Log(LogLevel::Fatal, category, message, file, line);
 }
 
 void Logger::SetGlobalMinLevel(LogLevel level) {
