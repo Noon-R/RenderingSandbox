@@ -5,6 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 
 namespace RenderingSandbox {
 
@@ -94,6 +95,26 @@ public:
     LogLevel GetGlobalMinLevel() const;
 
     /// <summary>
+    /// カテゴリ固有の最小ログレベルを設定
+    /// </summary>
+    /// <param name="category">カテゴリ名</param>
+    /// <param name="level">カテゴリ固有の最小ログレベル</param>
+    void SetCategoryLevel(const std::string& category, LogLevel level);
+
+    /// <summary>
+    /// カテゴリ固有の最小ログレベルをクリア（グローバルレベルに戻す）
+    /// </summary>
+    /// <param name="category">カテゴリ名</param>
+    void ClearCategoryLevel(const std::string& category);
+
+    /// <summary>
+    /// カテゴリ固有の最小ログレベルを取得
+    /// </summary>
+    /// <param name="category">カテゴリ名</param>
+    /// <returns>カテゴリ固有のレベル（未設定の場合はグローバルレベル）</returns>
+    LogLevel GetCategoryLevel(const std::string& category) const;
+
+    /// <summary>
     /// すべてのSinkをフラッシュ
     /// </summary>
     void Flush();
@@ -102,9 +123,10 @@ private:
     Logger();
     ~Logger();
 
-    std::vector<std::unique_ptr<ILogSink>> m_sinks;     // 登録されたSinkのリスト
-    LogLevel m_globalMinLevel;                          // グローバル最小ログレベル
-    mutable std::mutex m_mutex;                         // スレッドセーフのためのミューテックス
+    std::vector<std::unique_ptr<ILogSink>> m_sinks;                     // 登録されたSinkのリスト
+    LogLevel m_globalMinLevel;                                          // グローバル最小ログレベル
+    std::unordered_map<std::string, LogLevel> m_categoryLevels;         // カテゴリ固有のログレベル
+    mutable std::mutex m_mutex;                                         // スレッドセーフのためのミューテックス
 };
 
 } // namespace RenderingSandbox

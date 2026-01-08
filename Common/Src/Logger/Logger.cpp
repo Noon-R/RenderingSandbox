@@ -37,8 +37,18 @@ void Logger::Log(LogLevel level,
                  const char* file,
                  int line)
 {
-    // グローバルレベルチェックで早期リターン
-    if (level < m_globalMinLevel) {
+    // カテゴリ固有のレベルチェック（設定されている場合）
+    LogLevel minLevel = m_globalMinLevel;
+    {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        auto it = m_categoryLevels.find(category);
+        if (it != m_categoryLevels.end()) {
+            minLevel = it->second;
+        }
+    }
+
+    // レベルチェックで早期リターン
+    if (level < minLevel) {
         return;
     }
 
@@ -103,6 +113,25 @@ void Logger::Flush() {
             sink->Flush();
         }
     }
+}
+
+void Logger::SetCategoryLevel(const std::string& category, LogLevel level) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_categoryLevels[category] = level;
+}
+
+void Logger::ClearCategoryLevel(const std::string& category) {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_categoryLevels.erase(category);
+}
+
+LogLevel Logger::GetCategoryLevel(const std::string& category) const {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto it = m_categoryLevels.find(category);
+    if (it != m_categoryLevels.end()) {
+        return it->second;
+    }
+    return m_globalMinLevel;
 }
 
 } // namespace RenderingSandbox
