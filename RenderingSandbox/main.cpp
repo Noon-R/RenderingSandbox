@@ -108,7 +108,7 @@ int __stdcall wWinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _
     //ここからdxgi1_6が必要になってくる
     ComPtr<IDXGIFactory7> _dxgiFactory;
     hr = CreateDXGIFactory2(dxgiFlags, IID_PPV_ARGS(&_dxgiFactory));
-    LOG_I("D3D12", hr, "Failed to create DXGI Factory");
+    LOG_HRESULT("D3D12", hr, "Failed to create DXGI Factory");
 
     //デバイスの検索と作成
     
