@@ -1,6 +1,6 @@
 # RenderingSandbox - プロジェクト状況と学習計画
 
-最終更新: 2025-12-06
+最終更新: 2026-01-10
 
 ---
 
@@ -30,14 +30,26 @@ RenderingSandbox/
 │   │   └── zenn-doc-writer.md
 │   └── settings.local.json
 ├── .vs/                              # Visual Studio設定（自動生成）
-├── Documents/                        # 学習ドキュメント
-│   ├── learning_phases.md            # 学習フェーズ詳細（Phase 1-9）
-│   ├── rendering_techniques.md       # DirectX 12技術項目カタログ
-│   └── [今後追加予定]
+├── Common/                           # 共通ライブラリ（実装済み）
+│   ├── Include/                      # ヘッダーファイル
+│   │   └── Logger/                   # ログシステム
+│   ├── Src/                          # 共通実装
+│   │   └── Logger/                   # ログシステム実装
+│   └── ThirdParty/                   # 外部ライブラリ
+│       ├── imgui/                    # Dear ImGui 1.91.0
+│       ├── assimp/                   # Assimp 5.3.1
+│       └── stb/                      # stb_image, stb_image_resize
+├── docs/                             # 技術ドキュメント
+│   ├── draft/
+│   │   ├── learning_phases.md        # 学習フェーズ詳細（Phase 1-9）
+│   │   └── rendering_techniques.md   # DirectX 12技術項目カタログ
+│   └── directx12-interface-versions.md  # DirectX 12インターフェースバージョンガイド
 ├── RenderingSandbox/                 # メインプロジェクト
+│   ├── Tests/                        # ライブラリ動作確認テスト
 │   ├── RenderingSandbox.vcxproj      # プロジェクトファイル
 │   ├── RenderingSandbox.vcxproj.filters
-│   └── RenderingSandbox.vcxproj.user
+│   ├── RenderingSandbox.vcxproj.user
+│   └── main.cpp                      # エントリポイント
 ├── CLAUDE.md                         # Claude Code用プロジェクトガイド
 ├── PROJECT_STATUS.md                 # 本ファイル（進捗管理）
 └── RenderingSandbox.slnx             # ソリューションファイル
@@ -49,13 +61,6 @@ RenderingSandbox/
 
 ```
 RenderingSandbox/
-├── Common/                           # 共通ライブラリ（計画中）
-│   ├── Include/                      # ヘッダーファイル
-│   ├── Src/                          # 共通実装
-│   └── External/                     # 外部ライブラリ
-│       ├── imgui/                    # Dear ImGui 1.91.0
-│       ├── assimp/                   # Assimp 5.3.1
-│       └── stb/                      # stb_image, stb_image_resize
 ├── HelloTriangle/                    # Stage 1（計画中）
 │   ├── Shaders/                      # HLSLシェーダー
 │   ├── Main.cpp
@@ -165,13 +170,30 @@ RenderingSandbox/
 - [x] 学習資料の整理（learning_phases.md, rendering_techniques.md）
 - [x] プロジェクト管理ドキュメントの作成（本ファイル）
 - [x] Git環境の整備（.gitignore, .gitattributes, 初回コミット）
+- [x] **共通ライブラリの準備**（Common/ThirdParty フォルダ構造作成）
+- [x] **外部ライブラリのセットアップ**
+  - [x] Dear ImGui 1.91.0（gitサブモジュール）
+  - [x] stb（stb_image等）
+  - [x] Assimp 5.3.1（gitサブモジュール、CMakeビルド完了）
+- [x] **ライブラリ動作確認テスト**（Tests/ディレクトリ、全ライブラリ動作確認済み）
+- [x] **ログシステムの実装**（Common/Logger）
+  - [x] Logger本体（シングルトン、マルチシンク対応）
+  - [x] ConsoleSink（コンソール出力、色分け対応）
+  - [x] DebugOutputSink（Visual Studioデバッガ出力）
+  - [x] FileSink（ファイル出力、ローテーション機能）
+  - [x] ログマクロ（LOG_INFO, LOG_ERROR, LOG_WARNING, LOG_HRESULT等）
+  - [x] カテゴリフィルタリング機能
+- [x] **技術ドキュメントの作成**
+  - [x] DirectX 12インターフェースバージョンガイド（docs/directx12-interface-versions.md）
 
 ### 進行中
-- [ ] **Stage 1: HelloTriangle実装準備** ← 現在の焦点
+- [ ] **Stage 1: HelloTriangle実装開始準備** ← 現在の焦点
+  - ライブラリセットアップ完了、実装準備完了
 
 ### 未着手
-- [ ] 共通ライブラリの準備（Common フォルダ構造）
-- [ ] 外部ライブラリのセットアップ（Dear ImGui, Assimp, stb）
+- [ ] HelloTriangleディレクトリ構造の作成
+- [ ] Win32ウィンドウシステムの実装
+- [ ] DirectX 12初期化コードの実装
 - [ ] Stage 2: DrawModel実装
 - [ ] Stage 3: 高度な技術の実装
 
@@ -179,32 +201,44 @@ RenderingSandbox/
 
 ## 🚀 次のステップ（優先順位順）
 
-### 1. プロジェクト構造の整備（推奨）
+### 1. HelloTriangleディレクトリ構造の作成
 参考リポジトリに倣い、以下のディレクトリ構造を作成：
 ```
-Common/
-  ├── Include/
-  ├── Src/
-  └── External/
 HelloTriangle/
   ├── Shaders/
   └── [ソースファイル]
 ```
 
-### 2. 外部ライブラリのセットアップ
-必要なライブラリ：
-- **Dear ImGui** 1.91.0（デバッグUI用）
-- **Assimp** 5.3.1（3Dモデル読み込み - Stage 2以降で使用）
-- **stb_image**（画像ローディング）
-
-### 3. HelloTriangle実装開始
+### 2. HelloTriangle実装開始 ← 次はここ！
 以下の順序で実装：
-1. Win32ウィンドウの作成
-2. DirectX 12の初期化（デバイス、コマンドキュー、スワップチェーン）
-3. ルートシグネチャとパイプラインステートの作成
-4. 頂点バッファの作成
-5. HLSLシェーダーの作成（Vertex Shader, Pixel Shader）
-6. レンダリングループの実装
+1. **Win32ウィンドウの作成**
+   - Windowクラスの実装
+   - ウィンドウプロシージャの設定
+   - メッセージループ
+
+2. **DirectX 12の初期化**
+   - デバイス（ID3D12Device）の作成
+   - コマンドキュー（ID3D12CommandQueue）の作成
+   - スワップチェーン（IDXGISwapChain）の作成
+   - コマンドアロケーター、コマンドリストの作成
+
+3. **レンダリングパイプラインのセットアップ**
+   - ルートシグネチャの作成
+   - パイプラインステートオブジェクト（PSO）の作成
+   - 頂点バッファの作成
+
+4. **HLSLシェーダーの作成**
+   - Vertex Shader（.hlsl）
+   - Pixel Shader（.hlsl）
+
+5. **レンダリングループの実装**
+   - コマンドリストの記録
+   - 描画コマンドの発行
+   - スワップチェーンのプレゼント
+
+### 3. 参考リポジトリのコード学習
+- [book-directx12-mastery_1のHelloTriangle](https://github.com/techmadot/book-directx12-mastery_1/tree/main/HelloTriangle)を参照
+- コードを読んで理解し、自分で実装する
 
 ---
 
@@ -260,8 +294,9 @@ RenderingSandbox\x64\Release\RenderingSandbox.exe
 |---------|------|
 | `PROJECT_STATUS.md` | 本ファイル - プロジェクト全体の進捗と計画 |
 | `CLAUDE.md` | Claude Code用のプロジェクトガイド |
-| `Documents/learning_phases.md` | 詳細な9フェーズ学習計画（22ヶ月） |
-| `Documents/rendering_techniques.md` | DirectX 12技術項目の完全カタログ |
+| `docs/draft/learning_phases.md` | 詳細な9フェーズ学習計画（22ヶ月） |
+| `docs/draft/rendering_techniques.md` | DirectX 12技術項目の完全カタログ |
+| `docs/directx12-interface-versions.md` | DirectX 12インターフェースバージョン選択ガイド |
 
 ---
 
@@ -336,5 +371,7 @@ git push -u origin main
 ---
 
 **更新履歴**:
-- 2025-12-06: 初版作成、プロジェクト構造と学習計画の整理
+- 2026-01-10: ログシステム実装完了、DirectX 12インターフェースバージョンガイド作成
+- 2025-12-17: 外部ライブラリセットアップ完了の反映、次のステップを更新
 - 2025-12-06: Git環境の整備完了
+- 2025-12-06: 初版作成、プロジェクト構造と学習計画の整理
