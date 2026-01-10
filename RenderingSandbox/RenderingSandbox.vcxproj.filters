@@ -16,11 +16,23 @@
     <Filter Include="Tests">
       <UniqueIdentifier>{8C6C6D4E-9B3A-4F5E-9A1D-7E2F3B4C5D6E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External\ImGui">
-      <UniqueIdentifier>{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}</UniqueIdentifier>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{fff0d82f-1111-43ab-af06-d0305b8285d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External\ImGui\Backends">
-      <UniqueIdentifier>{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}</UniqueIdentifier>
+    <Filter Include="Header Files\imgui">
+      <UniqueIdentifier>{fcb6f131-8e27-46e2-af68-68d4dd8a07c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Log">
+      <UniqueIdentifier>{27ec472f-44b7-46f6-beda-7cd55b747374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Log\Sink">
+      <UniqueIdentifier>{adf0474e-786d-4729-b2e3-4a5846ce663d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Log">
+      <UniqueIdentifier>{42338e63-2eee-4eab-a711-abdb48466945}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Log\Sink">
+      <UniqueIdentifier>{f60a64d3-28f4-49d7-b317-a9bdb59552ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,22 +49,37 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui.cpp">
-      <Filter>External\ImGui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui_draw.cpp">
-      <Filter>External\ImGui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui_tables.cpp">
-      <Filter>External\ImGui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\imgui_widgets.cpp">
-      <Filter>External\ImGui</Filter>
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\backends\imgui_impl_dx12.cpp">
-      <Filter>External\ImGui\Backends</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\ThirdParty\imgui\backends\imgui_impl_win32.cpp">
-      <Filter>External\ImGui\Backends</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Src\Logger\Logger.cpp">
+      <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Src\Logger\LogMessage.cpp">
+      <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Src\Logger\ConsoleSink.cpp">
+      <Filter>Source Files\Log\Sink</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Src\Logger\DebugOutputSink.cpp">
+      <Filter>Source Files\Log\Sink</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Src\Logger\FileSink.cpp">
+      <Filter>Source Files\Log\Sink</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,16 +93,43 @@
       <Filter>Tests</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ThirdParty\imgui\imgui.h">
-      <Filter>External\ImGui</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ThirdParty\imgui\imconfig.h">
-      <Filter>External\ImGui</Filter>
+      <Filter>Header Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ThirdParty\imgui\backends\imgui_impl_dx12.h">
-      <Filter>External\ImGui\Backends</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\ThirdParty\imgui\backends\imgui_impl_win32.h">
-      <Filter>External\ImGui\Backends</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\Logger.h">
+      <Filter>Header Files\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\LogLevel.h">
+      <Filter>Header Files\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\LogMacros.h">
+      <Filter>Header Files\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\LogMessage.h">
+      <Filter>Header Files\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\LogSink.h">
+      <Filter>Header Files\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\ConsoleSink.h">
+      <Filter>Header Files\Log\Sink</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\DebugOutputSink.h">
+      <Filter>Header Files\Log\Sink</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Include\Logger\FileSink.h">
+      <Filter>Header Files\Log\Sink</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

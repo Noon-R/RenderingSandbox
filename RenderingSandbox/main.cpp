@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <wrl.h>
+#include <format>
 
 #define WIN32_LEAN_AND_MEAN //不要な機能をWindows.hから除外するための定義
 #include <Windows.h>
@@ -101,6 +102,7 @@ int __stdcall wWinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _
     }
 #endif
     ComPtr<IDXGIAdapter1> adapter;
+    ComPtr<ID3D12Device5> device;
 
     //DXGIの作成
     //DXGIが低レベル層との懸け橋になってくれることで、ハードウェアの違いを吸収してくれる
@@ -129,20 +131,30 @@ int __stdcall wWinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _
         }
 
         //D3D12の利用可否の確認
-        hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, __uuidof(ID3D12Device), nullptr);
+        // 作成できたということは、オッケーということ
+        //hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, __uuidof(ID3D12Device), nullptr);
+        hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
         LOG_HRESULT("D3D12", hr, "D3D12 device availability check");
         if (SUCCEEDED(hr))
         {
+            //利用可能なアダプタが見つかった
+            LOG_INFO("DeviceInfo",std::format("VecdorID:{}, DeviceID:{}", desc1.VendorId, desc1.DeviceId));
             break;
         }
     }
-
-    
 
 
     std::cout << "Press Enter to exit...";
     std::cin.get();
 
+    //Directxの終了処理
+    device.Reset();
+    device = nullptr;
+
+    adapter.Reset();
+    adapter = nullptr;
+
+    // Logger終了処理
     LOG_INFO("System", "=== RenderingSandbox Terminated ===");
     logger.Flush();
 
