@@ -22,10 +22,10 @@
 #include <dxgi1_6.h>
 extern "C" {
 
-    __declspec(dllexport)
-        extern const UINT D3D12SDKVersion = D3D12_SDK_VERSION;
-    __declspec(dllexport)
-        extern const char8_t* D3D12SDKPath = u8".\\D3D12\\";
+	__declspec(dllexport)
+		extern const UINT D3D12SDKVersion = D3D12_SDK_VERSION;
+	__declspec(dllexport)
+		extern const char8_t* D3D12SDKPath = u8".\\D3D12\\";
 
 }
 
@@ -33,133 +33,160 @@ using namespace Microsoft::WRL;
 
 int __stdcall wWinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ PWSTR pCmdLine, _In_ int nCmdShow)
 {
-    // コンソールウィンドウを割り当て（Windows Subsystemでもコンソール表示可能にする）
-    AllocConsole();
-    FILE* fp;
-    freopen_s(&fp, "CONOUT$", "w", stdout);
-    freopen_s(&fp, "CONOUT$", "w", stderr);
-    freopen_s(&fp, "CONIN$", "r", stdin);
+	// コンソールウィンドウを割り当て（Windows Subsystemでもコンソール表示可能にする）
+	AllocConsole();
+	FILE* fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+	freopen_s(&fp, "CONOUT$", "w", stderr);
+	freopen_s(&fp, "CONIN$", "r", stdin);
 
-    // Logger初期化
-    auto& logger = RenderingSandbox::Logger::GetInstance();
+	// Logger初期化
+	auto& logger = RenderingSandbox::Logger::GetInstance();
 
-    // 複数のSinkを追加
-    logger.AddSink(std::make_unique<RenderingSandbox::ConsoleSink>());
-    logger.AddSink(std::make_unique<RenderingSandbox::DebugOutputSink>());
-    logger.AddSink(std::make_unique<RenderingSandbox::FileSink>("RenderingSandbox.log"));
+	// 複数のSinkを追加
+	logger.AddSink(std::make_unique<RenderingSandbox::ConsoleSink>());
+	logger.AddSink(std::make_unique<RenderingSandbox::DebugOutputSink>());
+	logger.AddSink(std::make_unique<RenderingSandbox::FileSink>("RenderingSandbox.log"));
 
 #ifdef _DEBUG
-    logger.SetGlobalMinLevel(RenderingSandbox::LogLevel::Trace);
+	logger.SetGlobalMinLevel(RenderingSandbox::LogLevel::Trace);
 #else
-    logger.SetGlobalMinLevel(RenderingSandbox::LogLevel::Info);
+	logger.SetGlobalMinLevel(RenderingSandbox::LogLevel::Info);
 #endif
 
-    LOG_INFO("System", "=== RenderingSandbox Started ===");
-    LOG_INFO("System", "");
+	LOG_INFO("System", "=== RenderingSandbox Started ===");
+	LOG_INFO("System", "");
 
-    std::cout << "=== Library Test ===" << std::endl;
-    std::cout << std::endl;
+	std::cout << "=== Library Test ===" << std::endl;
+	std::cout << std::endl;
 
-    // ImGuiテスト実行
-    RunImGuiTest();
+	// ImGuiテスト実行
+	RunImGuiTest();
 
-    // stbテスト実行
-    RunStbTest();
+	// stbテスト実行
+	RunStbTest();
 
-    // Assimpテスト実行
-    RunAssimpTest();
+	// Assimpテスト実行
+	RunAssimpTest();
 
-    std::cout << "=== All Library Tests Completed ===" << std::endl;
-    std::cout << std::endl;
+	std::cout << "=== All Library Tests Completed ===" << std::endl;
+	std::cout << std::endl;
 
-    // DirectX12の初期化
-    HRESULT hr;
-    UINT dxgiFlags = 0;
+	// DirectX12の初期化
+	HRESULT hr;
+	UINT dxgiFlags = 0;
 
 #if _DEBUG
-    //TODO: 単純なデバッグ起動ではなく、DebugLevelを起動時引数で指定して変えられるようにする
+	//TODO: 単純なデバッグ起動ではなく、DebugLevelを起動時引数で指定して変えられるようにする
 
-    ComPtr<ID3D12Debug> d3d12Debug;
-    //SUCCEEDEDマクロはHRESULTを受けて成功しているかを判定してくれる
-    if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&d3d12Debug))))
-    {
-        //DebugLayerの有効化 (APIの不正利用などを検出できるようにする)
-        d3d12Debug->EnableDebugLayer();
-        LOG_INFO("D3D12", "Debug Layer enabled.");
+	ComPtr<ID3D12Debug> d3d12Debug;
+	//SUCCEEDEDマクロはHRESULTを受けて成功しているかを判定してくれる
+	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&d3d12Debug))))
+	{
+		//DebugLayerの有効化 (APIの不正利用などを検出できるようにする)
+		d3d12Debug->EnableDebugLayer();
+		LOG_INFO("D3D12", "Debug Layer enabled.");
 
-        //GBVのの有効化(Debug情報の追加)
-        //GPU Based Validation
-        ComPtr<ID3D12Debug3> debug3;
-        d3d12Debug.As(&debug3);
-        if (debug3) {
-            debug3->SetEnableGPUBasedValidation(TRUE);
-            LOG_INFO("D3D12", "GPU Based Validation enabled.");
-        }
-    }
-    else
-    {
-        LOG_ERROR("D3D12", "Failed to enable Debug Layer.");
-    }
+		//GBVのの有効化(Debug情報の追加)
+		//GPU Based Validation
+		ComPtr<ID3D12Debug3> debug3;
+		d3d12Debug.As(&debug3);
+		if (debug3)
+		{
+			debug3->SetEnableGPUBasedValidation(TRUE);
+			LOG_INFO("D3D12", "GPU Based Validation enabled.");
+		}
+	}
+	else
+	{
+		LOG_ERROR("D3D12", "Failed to enable Debug Layer.");
+	}
 #endif
-    ComPtr<IDXGIAdapter1> adapter;
-    ComPtr<ID3D12Device5> device;
+	ComPtr<IDXGIAdapter1> adapter;
+	ComPtr<ID3D12Device5> device;
 
-    //DXGIの作成
-    //DXGIが低レベル層との懸け橋になってくれることで、ハードウェアの違いを吸収してくれる
-    //更新などの緩衝材にもなっているはず...?
-    //ここからdxgi1_6が必要になってくる
-    ComPtr<IDXGIFactory7> _dxgiFactory;
-    hr = CreateDXGIFactory2(dxgiFlags, IID_PPV_ARGS(&_dxgiFactory));
-    LOG_HRESULT("D3D12", hr, "Failed to create DXGI Factory");
+	//DXGIの作成
+	//DXGIが低レベル層との懸け橋になってくれることで、ハードウェアの違いを吸収してくれる
+	//更新などの緩衝材にもなっているはず...?
+	//ここからdxgi1_6が必要になってくる
+	ComPtr<IDXGIFactory7> _dxgiFactory;
+	hr = CreateDXGIFactory2(dxgiFlags, IID_PPV_ARGS(&_dxgiFactory));
+	LOG_HRESULT("D3D12", hr, "Create DXGI Factory");
 
-    //デバイスの検索と作成
-    
-    //Adapterの列挙
-    //Adapter: GPU1つに対してあるようなものほぼGPUドライバに近い
-    UINT adapterIndex = 0;
-    //EnumAdapter1はGPUが今使われているかに関係なくあるものを列挙して
-    //EnumAdapterは使われているものだけを列挙するっぽい
-    while (DXGI_ERROR_NOT_FOUND != _dxgiFactory->EnumAdapters1(adapterIndex, &adapter))
-    {
-        DXGI_ADAPTER_DESC1 desc1{};
-        adapter->GetDesc1(&desc1);
-        ++adapterIndex;
+	//デバイスの検索と作成
 
-        //"Microsoft Basic Render Driver"が常駐しているので除外する
-        if (desc1.Flags & DXGI_ADAPTER_FLAG_SOFTWARE) {
-            continue;
-        }
+	//Adapterの列挙
+	//Adapter: GPU1つに対してあるようなものほぼGPUドライバに近い
+	UINT adapterIndex = 0;
+	//EnumAdapter1はGPUが今使われているかに関係なくあるものを列挙して
+	//EnumAdapterは使われているものだけを列挙するっぽい
+	while (DXGI_ERROR_NOT_FOUND != _dxgiFactory->EnumAdapters1(adapterIndex, &adapter))
+	{
+		DXGI_ADAPTER_DESC1 desc1{};
+		adapter->GetDesc1(&desc1);
+		++adapterIndex;
 
-        //D3D12の利用可否の確認
-        // 作成できたということは、オッケーということ
-        //hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, __uuidof(ID3D12Device), nullptr);
-        hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
-        LOG_HRESULT("D3D12", hr, "D3D12 device availability check");
-        if (SUCCEEDED(hr))
-        {
-            //利用可能なアダプタが見つかった
-            LOG_INFO("DeviceInfo",std::format("VecdorID:{}, DeviceID:{}", desc1.VendorId, desc1.DeviceId));
-            break;
-        }
-    }
+		//"Microsoft Basic Render Driver"が常駐しているので除外する
+		if (desc1.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
+		{
+			continue;
+		}
+
+		//D3D12の利用可否の確認
+		// 作成できたということは、オッケーということ
+		//hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, __uuidof(ID3D12Device), nullptr);
+		hr = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
+		LOG_HRESULT("D3D12", hr, "D3D12 device availability check");
+		if (SUCCEEDED(hr))
+		{
+			//利用可能なアダプタが見つかった
+
+			// ワイド文字列を通常の文字列に変換
+			std::wstring wDescription(desc1.Description);
+			std::string description(wDescription.begin(), wDescription.end());
+
+			LOG_INFO("DeviceInfo", std::format("Description: {}\nVendorID: {:#x}, DeviceID: {:#x}",
+				description, desc1.VendorId, desc1.DeviceId));
+
+			LARGE_INTEGER umdVersion;
+			adapter->CheckInterfaceSupport(__uuidof(ID3D12Device), &umdVersion);
+			LOG_INFO("DeviceInfo", std::format("UMD Version: {}.{}", umdVersion.HighPart, umdVersion.LowPart));
+
+			// CheckInterfaceSupportはDirectX 12では使用不可（Direct3D 10.x専用）
+			// DirectX 12の機能チェックはdevice->CheckFeatureSupport()を使用
+			break;
+		}
+	}
+
+	if (!device)
+	{
+		LOG_FATAL(false, "DirectX", "Failed Create Device");
+		return -1;
+	}
+
+	std::cout << "Press Enter to exit...";
+	std::cin.get();
+
+	//Directxの終了処理
+	if (device)
+	{
+		device.Reset();
+		device = nullptr;
+	}
+
+	if (adapter)
+	{
+		adapter.Reset();
+		adapter = nullptr;
+	}
 
 
-    std::cout << "Press Enter to exit...";
-    std::cin.get();
+	// Logger終了処理
+	LOG_INFO("System", "=== RenderingSandbox Terminated ===");
+	logger.Flush();
 
-    //Directxの終了処理
-    device.Reset();
-    device = nullptr;
+	// コンソールウィンドウを解放
+	FreeConsole();
 
-    adapter.Reset();
-    adapter = nullptr;
-
-    // Logger終了処理
-    LOG_INFO("System", "=== RenderingSandbox Terminated ===");
-    logger.Flush();
-
-    // コンソールウィンドウを解放
-    FreeConsole();
-
-    return 0;
+	return 0;
 }
